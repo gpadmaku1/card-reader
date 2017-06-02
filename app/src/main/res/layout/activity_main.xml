@@ -41,12 +41,14 @@
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/mainTextView"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
 
     <ImageButton
         android:id="@+id/cameraButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginLeft="8dp"
@@ -62,7 +64,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/takePicture"
-        app:srcCompat="@drawable/ic_action_photo_camera" />
+        app:srcCompat="@drawable/ic_action_photo_camera"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
 
     <EditText
@@ -80,7 +84,9 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cameraButton" />
+        app:layout_constraintTop_toBottomOf="@+id/cameraButton"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/phoneText"
@@ -96,7 +102,9 @@
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameText" />
+        app:layout_constraintTop_toBottomOf="@+id/nameText"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/emailText"
@@ -112,15 +120,19 @@
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneText" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneText"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/submitButton"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:layout_weight="1"
         android:background="@drawable/rounded_corners"
