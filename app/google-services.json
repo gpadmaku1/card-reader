@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "248457814682",
+    "firebase_url": "https://imagetotextapp.firebaseio.com",
+    "project_id": "imagetotextapp",
+    "storage_bucket": "imagetotextapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248457814682:android:1dec84614b89b3fd",
+        "android_client_info": {
+          "package_name": "com.example.gautham.imagetotextanalysis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248457814682-150d9o8uus348unsi539kdbu13npp42q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gautham.imagetotextanalysis",
+            "certificate_hash": "3725f6cf63a5bc210036812e7e36e439f0d0bf4c"
+          }
+        },
+        {
+          "client_id": "248457814682-ei0vb6ccl0h5481aapvomrheiddhs4p1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-8VwbNlMVl7dFN9HbtoIw5Esd9QH8Q5U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248457814682-ei0vb6ccl0h5481aapvomrheiddhs4p1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
