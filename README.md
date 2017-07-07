@@ -6,7 +6,7 @@
 <li>Display text to user</li>
 <ul>
 
-Current version 1.0
+# Current version 1.0
 
 # Sign in
 ![alt text](https://github.com/gpadmaku1/imageToTextAnalysis/blob/master/images/sign_in.png)
