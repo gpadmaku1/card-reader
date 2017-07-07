@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Starts the camera and
+     * Starts the camera and requests
      */
     public void startCameraActivityIntent(){
         Intent startCameraActivityIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

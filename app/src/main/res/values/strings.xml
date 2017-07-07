@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">imageToTextAnalysis</string>
+    <string name="email">Email</string>
+    <string name="done">Done</string>
+    <string name="phone_number">Phone number</string>
+    <string name="name">Name</string>
+    <string name="business_card_information">Business Card Information</string>
+    <string name="take_picture">Take picture</string>
+    <string name="button_to_open_camera">Button to open camera</string>
 </resources>
