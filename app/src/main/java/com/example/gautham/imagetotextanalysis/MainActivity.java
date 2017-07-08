@@ -18,7 +18,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -27,6 +37,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private static int IMAGE_CAPTURE_REQUEST = 1001;
     private static String mCurrentPhotoPath;
     private ProgressBar progressBar;
+    private static final String CLOUD_VISION_API_KEY = "AIzaSyDmCNPgpPim7C8pYYBHUAAKS0FcgIX6UEU";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
             String base64EncodedString = convertImageToBase64EncodedString();
             Log.w("YEE", base64EncodedString);
-//            JSONObject object = makePostJSONObject(base64EncodedString);
-//            callGoogleVisionAPI(object);
+            JSONObject object = makePostJSONObject(base64EncodedString);
+            callGoogleVisionAPI(object);
             deleteCapturedImage();
         }
     }
@@ -187,13 +200,84 @@ public class MainActivity extends AppCompatActivity {
 
 
     private JSONObject makePostJSONObject(String base64EncodedString) {
-        progressBar.setVisibility(View.VISIBLE);
-        return new JSONObject();
+//        progressBar.setVisibility(View.VISIBLE);
+        //ImageObject and FeaturesArrayObject go inside InnerJSONObject
+        //ImageObject
+        JSONObject imageObject = new JSONObject();
+        try {
+            imageObject.put("content", base64EncodedString);
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        JSONObject type = new JSONObject();
+        try{
+            type.put("type","DOCUMENT_TEXT_DETECTION");
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        //FeaturesArrayObject
+        JSONArray featuresArray = new JSONArray();
+        featuresArray.put(type);
+
+        //InnerJSONObject
+        JSONObject innerJSONObject = new JSONObject();
+        try {
+            innerJSONObject.put("image", imageObject);
+            innerJSONObject.put("features", featuresArray);
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        //InnerJSONObject goes inside RequestsArray
+        JSONArray requestsArray = new JSONArray();
+        requestsArray.put(innerJSONObject);
+
+        //RequestsArray goes inside MainObject
+        JSONObject mainObject = new JSONObject();
+        try {
+            mainObject.put("requests", requestsArray);
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        return mainObject;
     }
 
 
-//    private void callGoogleVisionAPI(JSONObject object) {
-//    }
+    /**
+     * Volley class to make HTTP Post Requests to Google Cloud Vision API
+     *
+     * @param object, The POST request JSON body
+     */
+    private void callGoogleVisionAPI(JSONObject object) {
+        progressBar.setVisibility(View.VISIBLE);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "https://vision.googleapis.com/v1/images:annotate?key=" + CLOUD_VISION_API_KEY;
+        JsonObjectRequest postRequest = new JsonObjectRequest(url, object,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        progressBar.setVisibility(View.GONE);
+                        Log.d("Response", response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(MainActivity.this, "Network error. Processing failed", Toast.LENGTH_LONG).show();
+                        Log.w("Error.Response", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(postRequest);
+    }
 
 
 }
