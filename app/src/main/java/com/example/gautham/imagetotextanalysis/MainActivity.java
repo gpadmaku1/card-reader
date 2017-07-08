@@ -1,7 +1,11 @@
 package com.example.gautham.imagetotextanalysis;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
-
+    
+    private static final int IMAGE_PERMISSION = 4 ;
     private static int IMAGE_CAPTURE_REQUEST = 1001;
 
     @Override
@@ -27,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         EditText emailText = (EditText) findViewById(R.id.emailText);
 
         cameraButton.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 startCameraActivityIntent();
@@ -35,14 +39,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     /**
-     * Starts the camera and requests
+     * Starts the camera and requests permission to use the camera if permission doesn't exist
+     *
      */
     public void startCameraActivityIntent(){
-        Intent startCameraActivityIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(startCameraActivityIntent.resolveActivity(getPackageManager()) != null){
-            startActivityForResult(startCameraActivityIntent, IMAGE_CAPTURE_REQUEST);
-        }
+        //Required camera permission
+        String[] permissions = {"android.permission.CAMERA"};
+        //Intent to startCamera
+        Intent startCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager
+                .PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, permissions, IMAGE_PERMISSION);
+        }
+        else {
+            if (startCameraIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(startCameraIntent, IMAGE_CAPTURE_REQUEST);
+            }
+        }
     }
 }

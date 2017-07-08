@@ -16,57 +16,37 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/business_card_information"
+        android:layout_marginTop="30dp"
+        android:text="@string/business_card_reader"
         android:textAlignment="center"
         android:textColor="#DCDCDC"
         android:textSize="24sp"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/takePicture"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="41dp"
-        android:text="@string/take_picture"
-        android:textAlignment="center"
-        android:textColor="#DCDCDC"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainTextView"
-        app:layout_constraintHorizontal_bias="0.0" />
-
 
     <ImageButton
-        android:contentDescription="@string/button_to_open_camera"
         android:id="@+id/cameraButton"
-        android:layout_width="330dp"
-        android:layout_height="41dp"
-        android:layout_margin="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="21dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="70dp"
         android:layout_weight="2.10"
         android:background="@drawable/rounded_corners"
+        android:contentDescription="@string/button_to_open_camera"
         android:padding="8dp"
         android:paddingEnd="8dp"
         android:paddingLeft="20dp"
         android:paddingRight="8dp"
         android:paddingStart="20dp"
         android:src="@drawable/ic_action_photo_camera"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/takePicture"
+        app:layout_constraintTop_toBottomOf="@+id/mainTextView"
         app:srcCompat="@drawable/ic_action_photo_camera" />
 
 
@@ -78,7 +58,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="70dp"
         android:layout_weight="1"
         android:backgroundTint="@android:color/white"
         android:ems="10"
@@ -100,17 +80,18 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:layout_weight="1"
         android:backgroundTint="@android:color/white"
         android:ems="10"
         android:hint="@string/phone_number"
-        android:inputType="textPersonName"
+        android:inputType="phone"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameText" />
+        app:layout_constraintTop_toBottomOf="@+id/nameText"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <EditText
         android:id="@+id/emailText"
@@ -120,17 +101,18 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:layout_weight="1"
         android:backgroundTint="@android:color/white"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneText" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneText"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <Button
         android:id="@+id/submitButton"
@@ -151,6 +133,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailText"
-        app:layout_constraintVertical_bias="0.181" />
+        app:layout_constraintVertical_bias="0.069" />
 
 </android.support.constraint.ConstraintLayout>
