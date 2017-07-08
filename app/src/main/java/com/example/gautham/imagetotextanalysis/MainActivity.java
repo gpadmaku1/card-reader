@@ -11,17 +11,22 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -107,4 +112,63 @@ public class MainActivity extends AppCompatActivity {
         Log.w("YEE", "Photo filepath: " + mCurrentPhotoPath);
         return image;
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
+            String base64EncodedString = convertImageToBase64EncodedString();
+            Log.w("YEE", base64EncodedString);
+//            JSONObject object = makePostJSONObject(base64EncodedString);
+//            callGoogleVisionAPI(object);
+        }
+    }
+
+    
+    /**
+     * Converts the captured image to a base 64 encoded string.
+     * Images are typically sent as long encoded strings in networks instead of bits and bytes of data
+     *
+     * Convert file to byteArrayOutputStream then to ByteArray and directly to a base64 encoded string
+     *
+     * @return , The encoded String that represents the captured image
+     */
+    private String convertImageToBase64EncodedString() {
+        File f = new File(mCurrentPhotoPath);
+        String base64EncodedString;
+
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        byte[] buffer = new byte[8192];
+        int bytesRead;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try{
+            assert inputStream != null;
+            while((bytesRead = inputStream.read(buffer)) != -1){
+                output.write(buffer, 0, bytesRead);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        byte[] bytes = output.toByteArray();
+        base64EncodedString = Base64.encodeToString(bytes, Base64.DEFAULT);
+        return base64EncodedString;
+    }
+
+
+//    private JSONObject makePostJSONObject(String base64EncodedString) {
+//    }
+//
+//
+//    private void callGoogleVisionAPI(JSONObject object) {
+//    }
+
 }
