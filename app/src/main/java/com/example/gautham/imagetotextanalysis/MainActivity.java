@@ -125,8 +125,9 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
             String base64EncodedString = convertImageToBase64EncodedString();
             Log.w("YEE", base64EncodedString);
-            JSONObject object = makePostJSONObject(base64EncodedString);
+//            JSONObject object = makePostJSONObject(base64EncodedString);
 //            callGoogleVisionAPI(object);
+            deleteCapturedImage();
         }
     }
 
@@ -168,6 +169,22 @@ public class MainActivity extends AppCompatActivity {
         return base64EncodedString;
     }
 
+    /**
+     * Method to delete the image after base64 encoded string has been obtained from it
+     *
+     * Avoids storing images that are unnecessary after use
+     */
+    private void deleteCapturedImage() {
+        File fileToBeDeleted = new File(mCurrentPhotoPath);
+        if(fileToBeDeleted.exists()){
+            if(fileToBeDeleted.delete()){
+                Log.w("YEE", "File Deleted: " + mCurrentPhotoPath);
+            } else {
+                Log.w("YEE", "File Not Deleted " + mCurrentPhotoPath);
+            }
+        }
+    }
+
 
     private JSONObject makePostJSONObject(String base64EncodedString) {
         progressBar.setVisibility(View.VISIBLE);
@@ -178,5 +195,5 @@ public class MainActivity extends AppCompatActivity {
 //    private void callGoogleVisionAPI(JSONObject object) {
 //    }
 
-    
+
 }
