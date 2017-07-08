@@ -20,7 +20,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -37,16 +36,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
+
 
     private static final int IMAGE_PERMISSION = 4 ;
     private static int IMAGE_CAPTURE_REQUEST = 1001;
     private static String mCurrentPhotoPath;
     private ProgressBar progressBar;
-    private static final String CLOUD_VISION_API_KEY = "AIzaSyDmCNPgpPim7C8pYYBHUAAKS0FcgIX6UEU";
+    private static final String CLOUD_VISION_API_KEY =  BuildConfig.API_KEY;
+    private EditText obtainedText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +59,23 @@ public class MainActivity extends AppCompatActivity {
 
         Button submitButton = (Button) findViewById(R.id.submitButton);
 
+        obtainedText = (EditText) findViewById(R.id.obtainedText);
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
-
-        EditText nameText = (EditText) findViewById(R.id.nameText);
-        EditText phoneText = (EditText) findViewById(R.id.phoneText);
-        EditText emailText = (EditText) findViewById(R.id.emailText);
 
         cameraButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                obtainedText.setText("");
                 startCameraActivityIntent();
+            }
+        });
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Data saved.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -104,6 +111,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
+            String base64EncodedString = convertImageToBase64EncodedString();
+            Log.w("YEE", base64EncodedString);
+            JSONObject object = makePostJSONObject(base64EncodedString);
+            callGoogleVisionAPI(object);
+            deleteCapturedImage();
+        }
+    }
+
+
     /**
      * Creates and writes a new image to send in the post request to Google Vision API
      *
@@ -111,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private File createImageFile(){
         //Create image filename
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CANADA).format(new Date());
         String imageFileName = "JPEG_00";
 
         //Access storage directory for photos and create temporary image file
@@ -131,20 +151,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
-            String base64EncodedString = convertImageToBase64EncodedString();
-            Log.w("YEE", base64EncodedString);
-            JSONObject object = makePostJSONObject(base64EncodedString);
-            callGoogleVisionAPI(object);
-            deleteCapturedImage();
-        }
-    }
-
-
     /**
      * Converts the captured image to a base 64 encoded string.
      * Images are typically sent as long encoded strings in networks instead of bits and bytes of data
@@ -156,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
     private String convertImageToBase64EncodedString() {
         File f = new File(mCurrentPhotoPath);
         String base64EncodedString;
-        progressBar.setVisibility(View.VISIBLE);
 
         InputStream inputStream = null;
         try {
@@ -182,25 +187,14 @@ public class MainActivity extends AppCompatActivity {
         return base64EncodedString;
     }
 
+
     /**
-     * Method to delete the image after base64 encoded string has been obtained from it
+     * Creates the JSON object that is to be sent in the POST HTTP call to Google Vision API
      *
-     * Avoids storing images that are unnecessary after use
+     * @param base64EncodedString, The string that represents the captured image data
+     * @return The JSONObject to be sent in the POST call
      */
-    private void deleteCapturedImage() {
-        File fileToBeDeleted = new File(mCurrentPhotoPath);
-        if(fileToBeDeleted.exists()){
-            if(fileToBeDeleted.delete()){
-                Log.w("YEE", "File Deleted: " + mCurrentPhotoPath);
-            } else {
-                Log.w("YEE", "File Not Deleted " + mCurrentPhotoPath);
-            }
-        }
-    }
-
-
     private JSONObject makePostJSONObject(String base64EncodedString) {
-//        progressBar.setVisibility(View.VISIBLE);
         //ImageObject and FeaturesArrayObject go inside InnerJSONObject
         //ImageObject
         JSONObject imageObject = new JSONObject();
@@ -262,7 +256,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // response
                         progressBar.setVisibility(View.GONE);
-                        Log.d("Response", response.toString());
+                        String bCardText = getRelevantString(response);
+                        bCardText = bCardText.replace("\n"," ");
+                        obtainedText.setText(bCardText);
+                        Log.d("Response", bCardText);
                     }
                 },
                 new Response.ErrorListener()
@@ -277,6 +274,68 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
         requestQueue.add(postRequest);
+    }
+
+
+    /**
+     * Gets the text from the returned JSONObject
+     *
+     * @param response, The JSONObject response send by the API call
+     * @return The relevant String to extract the account number from
+     */
+    String getRelevantString(JSONObject response) {
+        JSONArray responses = null;
+        try {
+            responses = response.getJSONArray("responses");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject textAnnotation = null;
+        try {
+            assert responses != null;
+            textAnnotation = responses.getJSONObject(0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray arr = null;
+        try {
+            assert textAnnotation != null;
+            arr = textAnnotation.getJSONArray("textAnnotations");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String finalString = null;
+        try {
+            finalString = null;
+            if (arr != null) {
+                JSONObject object = arr.getJSONObject(0);
+                finalString = object.get("description").toString();
+            }
+            //Log.w("YEE", finalString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return finalString;
+    }
+
+
+    /**
+     * Method to delete the image after base64 encoded string has been obtained from it
+     *
+     * Avoids storing images that are unnecessary after use
+     */
+    private void deleteCapturedImage() {
+        File fileToBeDeleted = new File(mCurrentPhotoPath);
+        if(fileToBeDeleted.exists()){
+            if(fileToBeDeleted.delete()){
+                Log.w("YEE", "File Deleted: " + mCurrentPhotoPath);
+            } else {
+                Log.w("YEE", "File Not Deleted " + mCurrentPhotoPath);
+            }
+        }
     }
 
 
