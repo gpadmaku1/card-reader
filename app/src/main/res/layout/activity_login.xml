@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/vine"
+    android:background="@drawable/twitch"
     tools:context="com.example.gautham.imagetotextanalysis.LoginActivity">
 
     <TextView
