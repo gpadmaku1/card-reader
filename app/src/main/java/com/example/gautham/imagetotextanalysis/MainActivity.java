@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int IMAGE_PERMISSION = 4 ;
     private static int IMAGE_CAPTURE_REQUEST = 1001;
     private static String mCurrentPhotoPath;
-
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Get access to buttons and editTexts
         ImageButton cameraButton = (ImageButton) findViewById(R.id.cameraButton);
+
         Button submitButton = (Button) findViewById(R.id.submitButton);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
 
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText phoneText = (EditText) findViewById(R.id.phoneText);
@@ -121,12 +125,12 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
             String base64EncodedString = convertImageToBase64EncodedString();
             Log.w("YEE", base64EncodedString);
-//            JSONObject object = makePostJSONObject(base64EncodedString);
+            JSONObject object = makePostJSONObject(base64EncodedString);
 //            callGoogleVisionAPI(object);
         }
     }
 
-    
+
     /**
      * Converts the captured image to a base 64 encoded string.
      * Images are typically sent as long encoded strings in networks instead of bits and bytes of data
@@ -138,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
     private String convertImageToBase64EncodedString() {
         File f = new File(mCurrentPhotoPath);
         String base64EncodedString;
+        progressBar.setVisibility(View.VISIBLE);
 
         InputStream inputStream = null;
         try {
@@ -164,11 +169,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    private JSONObject makePostJSONObject(String base64EncodedString) {
-//    }
-//
-//
+    private JSONObject makePostJSONObject(String base64EncodedString) {
+        progressBar.setVisibility(View.VISIBLE);
+        return new JSONObject();
+    }
+
+
 //    private void callGoogleVisionAPI(JSONObject object) {
 //    }
 
+    
 }
