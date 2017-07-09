@@ -5,30 +5,25 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/twitch"
+    android:background="@drawable/background"
     tools:context="com.example.gautham.imagetotextanalysis.MainActivity">
 
     <EditText
         android:id="@+id/obtainedText"
-        android:layout_width="321dp"
-        android:layout_height="218dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="269dp"
+        android:layout_margin="12dp"
         android:background="@drawable/back_border"
         android:ems="10"
-        android:hint="Text goes here.."
+        android:hint="@string/text_goes_here"
         android:inputType="textMultiLine|textImeMultiLine"
         android:padding="10dp"
         android:textAlignment="center"
         android:textColor="#000"
         app:layout_constraintBottom_toTopOf="@+id/submitButton"
-        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cameraButton"
-        app:layout_constraintVertical_bias="0.471" />
+        app:layout_constraintTop_toBottomOf="@+id/cameraButton" />
 
     <TextView
         android:id="@+id/mainTextView"
@@ -38,10 +33,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="26dp"
         android:text="@string/business_card_reader"
         android:textAlignment="center"
-        android:textColor="#DCDCDC"
+        android:textColor="#fff"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -51,11 +46,11 @@
 
     <ImageButton
         android:id="@+id/cameraButton"
-        android:layout_width="320dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/rounded_corners"
@@ -87,13 +82,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintVertical_bias="0.556" />
 
     <Button
         android:id="@+id/submitButton"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_width="114dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="38dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -102,6 +97,7 @@
         android:background="@drawable/rounded_corners"
         android:text="Save"
         android:textAllCaps="false"
+        android:textColor="#424242"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

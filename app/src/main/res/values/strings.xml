@@ -8,4 +8,5 @@
     <string name="take_picture">Take picture</string>
     <string name="button_to_open_camera">Button to open camera</string>
     <string name="business_card_reader">Business Card Reader</string>
+    <string name="text_goes_here">Text goes here..</string>
 </resources>
