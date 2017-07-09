@@ -20,6 +20,18 @@ public class ConstructJSON extends AsyncTask<Void, Void, JSONObject> {
 
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+
+    @Override
+    protected void onPostExecute(JSONObject jsonObject) {
+        super.onPostExecute(jsonObject);
+    }
+
+    
+    @Override
     protected JSONObject doInBackground(Void... params) {
 
             //ImageObject and FeaturesArrayObject go inside InnerJSONObject
