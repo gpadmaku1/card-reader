@@ -21,8 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -113,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
             String base64EncodedString = convertImageToBase64EncodedString();
             Log.w("YEE", base64EncodedString);
-            JSONObject object = makePostJSONObject(base64EncodedString);
+            ConstructJSON constructJSON = new ConstructJSON(base64EncodedString);
+            JSONObject object = constructJSON.doInBackground();
+//            JSONObject object = makePostJSONObject(base64EncodedString);
             VolleyNetworking volleyNetworking = new VolleyNetworking(this, progressBar, obtainedText);
             volleyNetworking.callGoogleVisionAPI(object);
             deleteCapturedImage();
@@ -185,56 +185,56 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Creates the JSON object that is to be sent in the POST HTTP call to Google Vision API
-     *
-     * @param base64EncodedString, The string that represents the captured image data
-     * @return The JSONObject to be sent in the POST call
-     */
-    private JSONObject makePostJSONObject(String base64EncodedString) {
-        //ImageObject and FeaturesArrayObject go inside InnerJSONObject
-        //ImageObject
-        JSONObject imageObject = new JSONObject();
-        try {
-            imageObject.put("content", base64EncodedString);
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
-        JSONObject type = new JSONObject();
-        try{
-            type.put("type","DOCUMENT_TEXT_DETECTION");
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-
-        //FeaturesArrayObject
-        JSONArray featuresArray = new JSONArray();
-        featuresArray.put(type);
-
-        //InnerJSONObject
-        JSONObject innerJSONObject = new JSONObject();
-        try {
-            innerJSONObject.put("image", imageObject);
-            innerJSONObject.put("features", featuresArray);
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
-        //InnerJSONObject goes inside RequestsArray
-        JSONArray requestsArray = new JSONArray();
-        requestsArray.put(innerJSONObject);
-
-        //RequestsArray goes inside MainObject
-        JSONObject mainObject = new JSONObject();
-        try {
-            mainObject.put("requests", requestsArray);
-        } catch(JSONException e){
-            e.printStackTrace();
-        }
-
-        return mainObject;
-    }
+//    /**
+//     * Creates the JSON object that is to be sent in the POST HTTP call to Google Vision API
+//     *
+//     * @param base64EncodedString, The string that represents the captured image data
+//     * @return The JSONObject to be sent in the POST call
+//     */
+//    private JSONObject makePostJSONObject(String base64EncodedString) {
+//        //ImageObject and FeaturesArrayObject go inside InnerJSONObject
+//        //ImageObject
+//        JSONObject imageObject = new JSONObject();
+//        try {
+//            imageObject.put("content", base64EncodedString);
+//        } catch (JSONException e){
+//            e.printStackTrace();
+//        }
+//
+//        JSONObject type = new JSONObject();
+//        try{
+//            type.put("type","DOCUMENT_TEXT_DETECTION");
+//        }catch (JSONException e){
+//            e.printStackTrace();
+//        }
+//
+//        //FeaturesArrayObject
+//        JSONArray featuresArray = new JSONArray();
+//        featuresArray.put(type);
+//
+//        //InnerJSONObject
+//        JSONObject innerJSONObject = new JSONObject();
+//        try {
+//            innerJSONObject.put("image", imageObject);
+//            innerJSONObject.put("features", featuresArray);
+//        } catch (JSONException e){
+//            e.printStackTrace();
+//        }
+//
+//        //InnerJSONObject goes inside RequestsArray
+//        JSONArray requestsArray = new JSONArray();
+//        requestsArray.put(innerJSONObject);
+//
+//        //RequestsArray goes inside MainObject
+//        JSONObject mainObject = new JSONObject();
+//        try {
+//            mainObject.put("requests", requestsArray);
+//        } catch(JSONException e){
+//            e.printStackTrace();
+//        }
+//
+//        return mainObject;
+//    }
 
 
     /**
