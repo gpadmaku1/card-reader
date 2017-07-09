@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private static int IMAGE_CAPTURE_REQUEST = 1001;
     private static String mCurrentPhotoPath;
     private ProgressBar progressBar;
-//    private static final String CLOUD_VISION_API_KEY =  BuildConfig.API_KEY;
     private EditText obtainedText;
 
 
@@ -117,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
             Log.w("YEE", base64EncodedString);
             ConstructJSON constructJSON = new ConstructJSON(base64EncodedString);
             JSONObject object = constructJSON.doInBackground();
-//            JSONObject object = makePostJSONObject(base64EncodedString);
             VolleyNetworking volleyNetworking = new VolleyNetworking(this, progressBar, obtainedText);
             volleyNetworking.callGoogleVisionAPI(object);
             deleteCapturedImage();
@@ -188,59 +186,7 @@ public class MainActivity extends AppCompatActivity {
         return base64EncodedString;
     }
 
-
-//    /**
-//     * Creates the JSON object that is to be sent in the POST HTTP call to Google Vision API
-//     *
-//     * @param base64EncodedString, The string that represents the captured image data
-//     * @return The JSONObject to be sent in the POST call
-//     */
-//    private JSONObject makePostJSONObject(String base64EncodedString) {
-//        //ImageObject and FeaturesArrayObject go inside InnerJSONObject
-//        //ImageObject
-//        JSONObject imageObject = new JSONObject();
-//        try {
-//            imageObject.put("content", base64EncodedString);
-//        } catch (JSONException e){
-//            e.printStackTrace();
-//        }
-//
-//        JSONObject type = new JSONObject();
-//        try{
-//            type.put("type","DOCUMENT_TEXT_DETECTION");
-//        }catch (JSONException e){
-//            e.printStackTrace();
-//        }
-//
-//        //FeaturesArrayObject
-//        JSONArray featuresArray = new JSONArray();
-//        featuresArray.put(type);
-//
-//        //InnerJSONObject
-//        JSONObject innerJSONObject = new JSONObject();
-//        try {
-//            innerJSONObject.put("image", imageObject);
-//            innerJSONObject.put("features", featuresArray);
-//        } catch (JSONException e){
-//            e.printStackTrace();
-//        }
-//
-//        //InnerJSONObject goes inside RequestsArray
-//        JSONArray requestsArray = new JSONArray();
-//        requestsArray.put(innerJSONObject);
-//
-//        //RequestsArray goes inside MainObject
-//        JSONObject mainObject = new JSONObject();
-//        try {
-//            mainObject.put("requests", requestsArray);
-//        } catch(JSONException e){
-//            e.printStackTrace();
-//        }
-//
-//        return mainObject;
-//    }
-
-
+    
     /**
      * Method to delete the image after base64 encoded string has been obtained from it
      *
