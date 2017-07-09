@@ -284,36 +284,9 @@ public class MainActivity extends AppCompatActivity {
      * @return The relevant String to extract the account number from
      */
     String getRelevantString(JSONObject response) {
-        JSONArray responses = null;
-        try {
-            responses = response.getJSONArray("responses");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JSONObject textAnnotation = null;
-        try {
-            assert responses != null;
-            textAnnotation = responses.getJSONObject(0);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JSONArray arr = null;
-        try {
-            assert textAnnotation != null;
-            arr = textAnnotation.getJSONArray("textAnnotations");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         String finalString = null;
         try {
-            finalString = null;
-            if (arr != null) {
-                JSONObject object = arr.getJSONObject(0);
-                finalString = object.get("description").toString();
-            }
-            //Log.w("YEE", finalString);
+            finalString = response.getJSONArray("responses").getJSONObject(0).getJSONArray("textAnnotations").getJSONObject(0).get("description").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
