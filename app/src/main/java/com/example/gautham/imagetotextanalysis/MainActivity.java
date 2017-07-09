@@ -20,11 +20,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static int IMAGE_CAPTURE_REQUEST = 1001;
     private static String mCurrentPhotoPath;
     private ProgressBar progressBar;
-    private static final String CLOUD_VISION_API_KEY =  BuildConfig.API_KEY;
+//    private static final String CLOUD_VISION_API_KEY =  BuildConfig.API_KEY;
     private EditText obtainedText;
 
 
@@ -119,8 +114,10 @@ public class MainActivity extends AppCompatActivity {
             String base64EncodedString = convertImageToBase64EncodedString();
             Log.w("YEE", base64EncodedString);
             JSONObject object = makePostJSONObject(base64EncodedString);
-            callGoogleVisionAPI(object);
+            VolleyNetworking volleyNetworking = new VolleyNetworking(this, progressBar, obtainedText);
+            volleyNetworking.callGoogleVisionAPI(object);
             deleteCapturedImage();
+
         }
     }
 
@@ -237,61 +234,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return mainObject;
-    }
-
-
-    /**
-     * Volley class to make HTTP Post Requests to Google Cloud Vision API
-     *
-     * @param object, The POST request JSON body
-     */
-    private void callGoogleVisionAPI(JSONObject object) {
-        progressBar.setVisibility(View.VISIBLE);
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "https://vision.googleapis.com/v1/images:annotate?key=" + CLOUD_VISION_API_KEY;
-        JsonObjectRequest postRequest = new JsonObjectRequest(url, object,
-                new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // response
-                        progressBar.setVisibility(View.GONE);
-                        String bCardText = getRelevantString(response);
-                        bCardText = bCardText.replace("\n"," ");
-                        obtainedText.setText(bCardText);
-                        Log.d("Response", bCardText);
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(MainActivity.this, "Network error. Processing failed", Toast.LENGTH_LONG).show();
-                        Log.w("Error.Response", error.toString());
-                    }
-                }
-        );
-        requestQueue.add(postRequest);
-    }
-
-
-    /**
-     * Gets the text from the returned JSONObject
-     *
-     * @param response, The JSONObject response send by the API call
-     * @return The relevant String to extract the account number from
-     */
-    String getRelevantString(JSONObject response) {
-        String finalString = null;
-        try {
-            finalString = response.getJSONArray("responses").getJSONObject(0).getJSONArray("textAnnotations").getJSONObject(0).get("description").toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return finalString;
     }
 
 

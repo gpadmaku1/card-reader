@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OCR Card Reader</string>
+    <string name="app_name">Card Reader</string>
     <string name="email">Email</string>
     <string name="done">Done</string>
     <string name="phone_number">Phone number</string>
