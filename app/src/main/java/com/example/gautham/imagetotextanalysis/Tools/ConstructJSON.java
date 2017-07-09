@@ -1,4 +1,4 @@
-package com.example.gautham.imagetotextanalysis;
+package com.example.gautham.imagetotextanalysis.Tools;
 
 import android.os.AsyncTask;
 
@@ -6,9 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by Gautham on 7/9/2017.
- */
 
 public class ConstructJSON extends AsyncTask<Void, Void, JSONObject> {
 
@@ -30,9 +27,9 @@ public class ConstructJSON extends AsyncTask<Void, Void, JSONObject> {
         super.onPostExecute(jsonObject);
     }
 
-    
+
     @Override
-    protected JSONObject doInBackground(Void... params) {
+    public JSONObject doInBackground(Void... params) {
 
             //ImageObject and FeaturesArrayObject go inside InnerJSONObject
             //ImageObject

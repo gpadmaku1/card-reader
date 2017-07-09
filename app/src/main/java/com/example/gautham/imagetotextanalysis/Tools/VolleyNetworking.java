@@ -1,4 +1,4 @@
-package com.example.gautham.imagetotextanalysis;
+package com.example.gautham.imagetotextanalysis.Tools;
 
 
 import android.content.Context;
@@ -13,11 +13,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.gautham.imagetotextanalysis.BuildConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-class VolleyNetworking {
+public class VolleyNetworking {
 
 
     private ProgressBar progressBar;
@@ -27,7 +28,7 @@ class VolleyNetworking {
 
 
     //Default constructor
-    VolleyNetworking(Context context, ProgressBar progressBar, EditText obtainedText){
+    public VolleyNetworking(Context context, ProgressBar progressBar, EditText obtainedText){
         this.context = context;
         this.progressBar = progressBar;
         this.obtainedText = obtainedText;

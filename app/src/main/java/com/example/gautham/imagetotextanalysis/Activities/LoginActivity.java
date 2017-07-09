@@ -1,4 +1,4 @@
-package com.example.gautham.imagetotextanalysis;
+package com.example.gautham.imagetotextanalysis.Activities;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.gautham.imagetotextanalysis.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

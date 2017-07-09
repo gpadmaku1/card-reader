@@ -1,4 +1,4 @@
-package com.example.gautham.imagetotextanalysis;
+package com.example.gautham.imagetotextanalysis.Activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -20,6 +20,10 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+
+import com.example.gautham.imagetotextanalysis.R;
+import com.example.gautham.imagetotextanalysis.Tools.ConstructJSON;
+import com.example.gautham.imagetotextanalysis.Tools.VolleyNetworking;
 
 import org.json.JSONObject;
 
