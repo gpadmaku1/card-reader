@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:248457814682:android:1dec84614b89b3fd",
         "android_client_info": {
-          "package_name": "com.example.gautham.imagetotextanalysis"
+          "package_name": "com.gpads.gautham.imagetotextanalysis"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "248457814682-150d9o8uus348unsi539kdbu13npp42q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.gautham.imagetotextanalysis",
+            "package_name": "com.gpads.gautham.imagetotextanalysis",
             "certificate_hash": "3725f6cf63a5bc210036812e7e36e439f0d0bf4c"
           }
         },

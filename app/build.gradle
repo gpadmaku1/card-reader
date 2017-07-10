@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         buildConfigField("String", "API_KEY", API_KEY)
-        applicationId "com.example.gautham.imagetotextanalysis"
+        applicationId "com.gpads.gautham.imagetotextanalysis"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1

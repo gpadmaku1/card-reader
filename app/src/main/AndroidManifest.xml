@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.gautham.imagetotextanalysis">
+    package="com.gpads.gautham.imagetotextanalysis">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
@@ -33,7 +33,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.android.FileProvider"
+            android:authorities="com.gpads.android.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

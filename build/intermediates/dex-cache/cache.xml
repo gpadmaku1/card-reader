@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\Gautham\.android\build-cache\ed7335d58f51aca85d387600b55a2587f69f7cab\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
-        <dex dex="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_114f9f05b5bfceb8cae70ea057bf0b8c9eb92aae\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
@@ -25,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="ab9060f267cc2fa3026ed209741d76fccc372016">
+        sha1="40651b03595a2f6eefd53eca6d53f540063f9366">
         <dex dex="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_35824451081151855d3f35f0b26b11e25b291a4e\classes.dex" />
     </item>
 
