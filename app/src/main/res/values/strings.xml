@@ -9,4 +9,9 @@
     <string name="button_to_open_camera">Button to open camera</string>
     <string name="business_card_reader">Business Card Reader</string>
     <string name="text_goes_here">Text goes here..</string>
+    <string name="contacts">Contacts</string>
+    <string name="enter_email_address">Enter email address</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="enter_name">Enter name</string>
+    <string name="phone">Phone</string>
 </resources>

@@ -26,6 +26,8 @@ public class VolleyNetworking {
     private Context context;
     private static final String CLOUD_VISION_API_KEY =  BuildConfig.API_KEY;
 
+    private String googleVisionResult;
+
 
     //Default constructor
     public VolleyNetworking(Context context, ProgressBar progressBar, EditText obtainedText){
@@ -44,6 +46,7 @@ public class VolleyNetworking {
         progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String url = "https://vision.googleapis.com/v1/images:annotate?key=" + CLOUD_VISION_API_KEY;
+        Log.w("YEE", url);
         JsonObjectRequest postRequest = new JsonObjectRequest(url, object,
                 new Response.Listener<JSONObject>()
                 {
@@ -51,10 +54,16 @@ public class VolleyNetworking {
                     public void onResponse(JSONObject response) {
                         // response
                         progressBar.setVisibility(View.GONE);
-                        String bCardText = getRelevantString(response);
-                        bCardText = bCardText.replace("\n"," ");
-                        obtainedText.setText(bCardText);
-                        Log.d("Response", bCardText);
+                        if(response!= null) {
+                            String bCardText = getRelevantString(response);
+                            bCardText = bCardText.replace("\n", " ");
+                            googleVisionResult = bCardText;
+                            Log.w("YEE", "volley:" + googleVisionResult);
+                            obtainedText.setText(bCardText);
+                            Log.d("Response", bCardText);
+                        } else{
+                            Log.w("YEE", "response is null");
+                        }
                     }
                 },
                 new Response.ErrorListener()
@@ -71,6 +80,8 @@ public class VolleyNetworking {
         requestQueue.add(postRequest);
     }
 
+
+
     /**
      * Gets the text from the returned JSONObject
      *
@@ -80,7 +91,8 @@ public class VolleyNetworking {
     private String getRelevantString(JSONObject response) {
         String finalString = null;
         try {
-            finalString = response.getJSONArray("responses").getJSONObject(0).getJSONArray("textAnnotations").getJSONObject(0).get("description").toString();
+            finalString = response.getJSONArray("responses").getJSONObject(0)
+                    .getJSONArray("textAnnotations").getJSONObject(0).get("description").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private EditText obtainedText;
 
+    private String phoneNumber;
+    private String name;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,13 @@ public class MainActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Data saved.", Toast.LENGTH_SHORT).show();
+                String results = obtainedText.getText().toString();
+                parseResults(results);
+                Log.w("YEE", phoneNumber);
+                Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
+                intent.putExtra("phoneNumber", phoneNumber);
+                Log.w("YEE", "click " + phoneNumber);
+                startActivity(intent);
             }
         });
     }
@@ -118,11 +127,17 @@ public class MainActivity extends AppCompatActivity {
             JSONObject object = constructJSON.doInBackground();
             VolleyNetworking volleyNetworking = new VolleyNetworking(this, progressBar, obtainedText);
             volleyNetworking.callGoogleVisionAPI(object);
-            deleteCapturedImage();
 
+            deleteCapturedImage();
         }
     }
 
+    private void parseResults(String bCardText) {
+        String phNo = bCardText;
+         phNo = phNo.replaceAll("[^-?0-9]", "");
+        Log.w("YEE", phNo);
+        phoneNumber = phNo;
+    }
 
     /**
      * Creates and writes a new image to send in the post request to Google Vision API
