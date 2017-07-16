@@ -8,11 +8,6 @@
 
 # Current version 1.0
 
-# Sign in
-<p>Sign in using Google Account Sign in - Firebase</p>
-
-![alt text](https://github.com/gpadmaku1/imageToTextAnalysis/blob/master/images/sign_in.png)
-
 # Main Activity
 <p>Take a picture and get the text back</p>
 
