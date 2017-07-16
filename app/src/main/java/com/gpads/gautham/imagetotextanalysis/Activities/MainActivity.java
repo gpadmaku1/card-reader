@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText obtainedText;
 
     private String phoneNumber;
-    private String name;
-    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +84,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
+            String base64EncodedString = convertImageToBase64EncodedString();
+            Log.w("YEE", base64EncodedString);
+            ConstructJSON constructJSON = new ConstructJSON(base64EncodedString);
+            JSONObject object = constructJSON.doInBackground();
+            VolleyNetworking volleyNetworking = new VolleyNetworking(this, progressBar, obtainedText);
+            volleyNetworking.callGoogleVisionAPI(object);
+
+            deleteCapturedImage();
+        }
+    }
+
+
     /**
      * Starts the camera and requests permission to use the camera if permission doesn't exist
      *
@@ -115,22 +130,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
-            String base64EncodedString = convertImageToBase64EncodedString();
-            Log.w("YEE", base64EncodedString);
-            ConstructJSON constructJSON = new ConstructJSON(base64EncodedString);
-            JSONObject object = constructJSON.doInBackground();
-            VolleyNetworking volleyNetworking = new VolleyNetworking(this, progressBar, obtainedText);
-            volleyNetworking.callGoogleVisionAPI(object);
-
-            deleteCapturedImage();
-        }
-    }
 
     private void parseResults(String bCardText) {
         String phNo = bCardText;
