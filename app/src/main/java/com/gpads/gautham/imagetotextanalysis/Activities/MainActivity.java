@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -79,18 +81,38 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String results = obtainedText.getText().toString().trim();
                 ArrayList<String> phoneNumbers = parseResults(results);
+
                 if(phoneNumbers == null){
                     phoneNumber = "Error";
                 }else{
                     phoneNumber = phoneNumbers.get(0);
                 }
+                contactName = parseName(results);
+                contactEmail = parseEmail(results);
                 Log.w("YEE", phoneNumber);
+                Log.w("YEE", contactName);
+                Log.w("YEE", contactEmail);
                 Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
                 intent.putExtra("phoneNumber", phoneNumber);
-                Log.w("YEE", "click " + phoneNumber);
+                intent.putExtra("name", contactName);
+                intent.putExtra("email", contactEmail);
                 startActivity(intent);
             }
         });
+    }
+
+    private String parseEmail(String results) {
+        Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(results);
+        String parsedEmail = "Error";
+        while (m.find()) {
+            parsedEmail = m.group();
+        }
+        return parsedEmail;
+    }
+
+    private String parseName(String results) {
+        String[] arr = results.split("\\s+");
+        return arr[0] + " " + arr[1];
     }
 
 

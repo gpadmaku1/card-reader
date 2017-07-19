@@ -9,9 +9,13 @@ import com.gpads.gautham.imagetotextanalysis.R;
 
 public class ContactsActivity extends AppCompatActivity {
 
-    EditText phoneText;
-    EditText nameText;
-    EditText emailText;
+    private EditText phoneText;
+    private EditText nameText;
+    private EditText emailText;
+
+    private String name;
+    private String email;
+    private String phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +25,11 @@ public class ContactsActivity extends AppCompatActivity {
         phoneText = (EditText) findViewById(R.id.phoneText);
         nameText = (EditText) findViewById(R.id.nameText);
         emailText = (EditText) findViewById(R.id.emailText);
-        String y = getIntent().getStringExtra("phoneNumber");
-        Log.w("YEE", "contacts activity: " + y);
-        phoneText.setText(y);
+        phone = getIntent().getStringExtra("phoneNumber");
+        email = getIntent().getStringExtra("email");
+        name = getIntent().getStringExtra("name");
+        phoneText.setText(phone);
+        nameText.setText(name);
+        emailText.setText(email);
     }
 }
