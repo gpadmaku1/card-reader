@@ -18,9 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-
+import com.google.i18n.phonenumbers.PhoneNumberMatch;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.gpads.gautham.imagetotextanalysis.R;
 import com.gpads.gautham.imagetotextanalysis.Tools.ConstructJSON;
 import com.gpads.gautham.imagetotextanalysis.Tools.VolleyNetworking;
@@ -33,18 +33,23 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
     private static final int IMAGE_PERMISSION = 4 ;
-    private static int IMAGE_CAPTURE_REQUEST = 1001;
-    private static String mCurrentPhotoPath;
+    private static final int IMAGE_CAPTURE_REQUEST = 1001;
+
     private ProgressBar progressBar;
+
     private EditText obtainedText;
 
+    private String mCurrentPhotoPath;
     private String phoneNumber;
+    private String contactName;
+    private String contactEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +77,13 @@ public class MainActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String results = obtainedText.getText().toString();
-                parseResults(results);
+                String results = obtainedText.getText().toString().trim();
+                ArrayList<String> phoneNumbers = parseResults(results);
+                if(phoneNumbers == null){
+                    phoneNumber = "Error";
+                }else{
+                    phoneNumber = phoneNumbers.get(0);
+                }
                 Log.w("YEE", phoneNumber);
                 Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
                 intent.putExtra("phoneNumber", phoneNumber);
@@ -95,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
             JSONObject object = constructJSON.doInBackground();
             VolleyNetworking volleyNetworking = new VolleyNetworking(this, progressBar, obtainedText);
             volleyNetworking.callGoogleVisionAPI(object);
-
             deleteCapturedImage();
         }
     }
@@ -131,11 +140,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void parseResults(String bCardText) {
-        String phNo = bCardText;
-         phNo = phNo.replaceAll("[^-?0-9]", "");
-        Log.w("YEE", phNo);
-        phoneNumber = phNo;
+    /**
+     * Parses phoneNumbers from a string using Google's libphonenumber library
+     *
+     * @param bCardText, The text obtained from the vision API processing
+     * @return ArrayList of parsed phone numbers from the vision API processed text string
+     */
+    private ArrayList<String> parseResults(String bCardText) {
+        PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+        Iterable<PhoneNumberMatch> numberMatches = phoneNumberUtil.findNumbers(bCardText, Locale.US.getCountry());
+        ArrayList<String> data = new ArrayList<>();
+        for(PhoneNumberMatch number : numberMatches){
+            String s = number.rawString();
+            data.add(s);
+        }
+        return data;
     }
 
     /**
@@ -216,6 +235,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }
