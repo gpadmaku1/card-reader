@@ -123,22 +123,25 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/contactBtn"
+        android:layout_width="139dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="monospace"
-        android:text="@string/done"
+        android:text="Add Contact"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailText"
-        app:layout_constraintVertical_bias="0.588" />
+        app:layout_constraintVertical_bias="0.592"
+        tools:layout_editor_absoluteX="133dp"
+        tools:layout_editor_absoluteY="478dp" />
 
 </android.support.constraint.ConstraintLayout>
