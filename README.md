@@ -1,4 +1,4 @@
-# Business Card Reader Android App
+# Card Reader Android App
 
 <ul>
 <li>Take a picture of a business card</li>
