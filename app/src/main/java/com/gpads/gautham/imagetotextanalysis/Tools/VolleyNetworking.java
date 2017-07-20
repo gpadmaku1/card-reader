@@ -56,11 +56,15 @@ public class VolleyNetworking {
                         progressBar.setVisibility(View.GONE);
                         if(response!= null) {
                             String bCardText = getRelevantString(response);
-                            bCardText = bCardText.replace("\n", " ");
-                            googleVisionResult = bCardText;
-                            Log.w("YEE", "volley:" + googleVisionResult);
-                            obtainedText.setText(bCardText);
-                            Log.d("Response", bCardText);
+                            try {
+                                bCardText = bCardText.replace("\n", " ");
+                                googleVisionResult = bCardText;
+                                Log.w("YEE", "volley:" + googleVisionResult);
+                                obtainedText.setText(bCardText);
+                                Log.d("Response", bCardText);
+                            }catch (NullPointerException e){
+                                e.printStackTrace();
+                            }
                         } else{
                             Log.w("YEE", "response is null");
                         }

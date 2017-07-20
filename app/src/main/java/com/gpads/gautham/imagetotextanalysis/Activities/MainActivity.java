@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.i18n.phonenumbers.PhoneNumberMatch;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -85,18 +86,31 @@ public class MainActivity extends AppCompatActivity {
                 if(phoneNumbers == null){
                     phoneNumber = "Error";
                 }else{
-                    phoneNumber = phoneNumbers.get(0);
+                    if(!phoneNumbers.isEmpty())
+                    try {
+                        phoneNumber = phoneNumbers.get(0);
+                    }catch(IndexOutOfBoundsException e){
+                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, "There is no text!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                contactName = parseName(results);
-                contactEmail = parseEmail(results);
-                Log.w("YEE", phoneNumber);
-                Log.w("YEE", contactName);
-                Log.w("YEE", contactEmail);
-                Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
-                intent.putExtra("phoneNumber", phoneNumber);
-                intent.putExtra("name", contactName);
-                intent.putExtra("email", contactEmail);
-                startActivity(intent);
+                if(!results.isEmpty()) {
+                    try {
+                        contactName = parseName(results);
+                        contactEmail = parseEmail(results);
+                        Log.w("YEE", phoneNumber);
+                        Log.w("YEE", contactName);
+                        Log.w("YEE", contactEmail);
+                        Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
+                        intent.putExtra("phoneNumber", phoneNumber);
+                        intent.putExtra("name", contactName);
+                        intent.putExtra("email", contactEmail);
+                        startActivity(intent);
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
@@ -111,8 +125,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String parseName(String results) {
-        String[] arr = results.split("\\s+");
-        return arr[0] + " " + arr[1];
+        try {
+            String[] arr = results.split("\\s+");
+            return arr[0] + " " + arr[1];
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            return "";
+        }
     }
 
 
