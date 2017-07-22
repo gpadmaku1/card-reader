@@ -7,6 +7,8 @@
 <li>Key information is then presented in Google Contacts to save as contact</li>
 </ul>
 
+<p>App on Google Play Store - https://play.google.com/store/apps/details?id=com.gpads.gautham.imagetotextanalysis</p>
+
 # Screenshots of working app
 
 ![alt text](https://github.com/gpadmaku1/card-reader/blob/master/images/Screenshot_20170722-115049.PNG)
