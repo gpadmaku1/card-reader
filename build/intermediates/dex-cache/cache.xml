@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\Gautham\.gradle\caches\modules-2\files-2.1\com.googlecode.libphonenumber\libphonenumber\5.5\396b88c5437090abca48ba681991aa625460a0ca\libphonenumber-5.5.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="396b88c5437090abca48ba681991aa625460a0ca">
-        <dex dex="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\transforms\dex\debug\folders\1000\10\libphonenumber-5.5_93100e091be5fd99ddd8c99deba767d214cfe668\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
@@ -25,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="8b9bf4b4dbffad664da853cdaee571eae1c778c2">
+        sha1="4b41504d6cc72c31c57bfddbddfec87de0ebc2f1">
         <dex dex="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_35824451081151855d3f35f0b26b11e25b291a4e\classes.dex" />
     </item>
 

@@ -61,9 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Get access to buttons and editTexts
         ImageButton cameraButton = (ImageButton) findViewById(R.id.cameraButton);
-
         Button submitButton = (Button) findViewById(R.id.submitButton);
-
         obtainedText = (EditText) findViewById(R.id.obtainedText);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -115,26 +113,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private String parseEmail(String results) {
-        Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(results);
-        String parsedEmail = "Error";
-        while (m.find()) {
-            parsedEmail = m.group();
-        }
-        return parsedEmail;
-    }
-
-    private String parseName(String results) {
-        try {
-            String[] arr = results.split("\\s+");
-            return arr[0] + " " + arr[1];
-        }catch (IndexOutOfBoundsException e){
-            e.printStackTrace();
-            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-            return "";
-        }
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -181,23 +159,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    /**
-     * Parses phoneNumbers from a string using Google's libphonenumber library
-     *
-     * @param bCardText, The text obtained from the vision API processing
-     * @return ArrayList of parsed phone numbers from the vision API processed text string
-     */
-    private ArrayList<String> parseResults(String bCardText) {
-        PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
-        Iterable<PhoneNumberMatch> numberMatches = phoneNumberUtil.findNumbers(bCardText, Locale.US.getCountry());
-        ArrayList<String> data = new ArrayList<>();
-        for(PhoneNumberMatch number : numberMatches){
-            String s = number.rawString();
-            data.add(s);
-        }
-        return data;
-    }
 
     /**
      * Creates and writes a new image to send in the post request to Google Vision API
@@ -277,4 +238,55 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    /**
+     * Parses phoneNumbers from a string using Google's libphonenumber library
+     *
+     * @param bCardText, The text obtained from the vision API processing
+     * @return ArrayList of parsed phone numbers from the vision API processed text string
+     */
+    private ArrayList<String> parseResults(String bCardText) {
+        PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+        Iterable<PhoneNumberMatch> numberMatches = phoneNumberUtil.findNumbers(bCardText, Locale.US.getCountry());
+        ArrayList<String> data = new ArrayList<>();
+        for(PhoneNumberMatch number : numberMatches){
+            String s = number.rawString();
+            data.add(s);
+        }
+        return data;
+    }
+
+
+    /**
+     * Parses email from the string returned from Google Vision APi
+     * @param results, String returned from Google Vision API
+     * @return String that is the parsed email. Uses REGEX
+     */
+    private String parseEmail(String results) {
+        Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(results);
+        String parsedEmail = "Error";
+        while (m.find()) {
+            parsedEmail = m.group();
+        }
+        return parsedEmail;
+    }
+
+
+    /**
+     * Parses name from the string returned from Google Vision APi
+     * @param results, String returned from Google Vision API
+     * @return String that is the parsed email. Picks first two strings from the param
+     */
+    private String parseName(String results) {
+        try {
+            String[] arr = results.split("\\s+");
+            return arr[0] + " " + arr[1];
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            return "";
+        }
+    }
+
 }
