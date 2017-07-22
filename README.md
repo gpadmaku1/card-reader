@@ -7,4 +7,4 @@
 <li>Key information is then presented in Google Contacts to save as contact</li>
 </ul>
 
-# Current version 1.0
+# Current version 2.0
