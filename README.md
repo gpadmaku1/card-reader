@@ -7,4 +7,11 @@
 <li>Key information is then presented in Google Contacts to save as contact</li>
 </ul>
 
+# Screenshots of working app
+
+![alt text](https://github.com/gpadmaku1/card-reader/blob/master/images/Screenshot_20170722-115049.PNG)
+![alt text](https://github.com/gpadmaku1/card-reader/blob/master/images/Screenshot_20170722-115042.png)
+![alt text](https://github.com/gpadmaku1/card-reader/blob/master/images/Screenshot_20170722-115048.png)
+![alt text](https://github.com/gpadmaku1/card-reader/blob/master/images/Screenshot_20170722-115102.png)
+
 # Current version 2.0
