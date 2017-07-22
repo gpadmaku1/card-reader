@@ -18,7 +18,6 @@ import com.gpads.gautham.imagetotextanalysis.R;
 
 public class ContactsActivity extends AppCompatActivity {
 
-
     private EditText phoneText;
     private EditText nameText;
     private EditText emailText;
@@ -30,7 +29,6 @@ public class ContactsActivity extends AppCompatActivity {
     private String name;
     private String email;
     private String phone;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
