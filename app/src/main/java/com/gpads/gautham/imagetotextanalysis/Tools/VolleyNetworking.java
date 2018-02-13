@@ -46,7 +46,6 @@ public class VolleyNetworking {
         progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String url = "https://vision.googleapis.com/v1/images:annotate?key=" + CLOUD_VISION_API_KEY;
-        Log.w("YEE", url);
         JsonObjectRequest postRequest = new JsonObjectRequest(url, object,
                 new Response.Listener<JSONObject>()
                 {
@@ -59,14 +58,12 @@ public class VolleyNetworking {
                             try {
                                 bCardText = bCardText.replace("\n", " ");
                                 googleVisionResult = bCardText;
-                                Log.w("YEE", "volley:" + googleVisionResult);
                                 obtainedText.setText(bCardText);
-                                Log.d("Response", bCardText);
                             }catch (NullPointerException e){
                                 e.printStackTrace();
                             }
                         } else{
-                            Log.w("YEE", "response is null");
+                            Log.w("VolleyNetworking", "response is null");
                         }
                     }
                 },

@@ -100,9 +100,6 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         contactName = parseName(results);
                         contactEmail = parseEmail(results);
-                        Log.w("YEE", phoneNumber);
-                        Log.w("YEE", contactName);
-                        Log.w("YEE", contactEmail);
                         Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
                         intent.putExtra("phoneNumber", phoneNumber);
                         intent.putExtra("name", contactName);
@@ -128,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == IMAGE_CAPTURE_REQUEST && resultCode == RESULT_OK){
             String base64EncodedString = convertImageToBase64EncodedString();
-            Log.w("YEE", base64EncodedString);
             ConstructJSON constructJSON = new ConstructJSON(base64EncodedString);
             JSONObject object = constructJSON.doInBackground();
             VolleyNetworking volleyNetworking = new VolleyNetworking(this, progressBar, obtainedText);
@@ -157,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
                 File photoFile = createImageFile();
                 if(photoFile != null) {
                     Uri photoURI = FileProvider.getUriForFile(this, "com.gpads.android.FileProvider", photoFile);
-                    Log.w("YEE", "URI path: " + photoURI.toString());
 
                     //For non bitmap full sized images use EXTRA_OUTPUT during Intent
                     startCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -189,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
         //Store file path for usage with intents
         assert image != null;
         mCurrentPhotoPath = image.getAbsolutePath();
-        Log.w("YEE", "Photo filepath: " + mCurrentPhotoPath);
         return image;
     }
 
@@ -240,9 +234,9 @@ public class MainActivity extends AppCompatActivity {
         File fileToBeDeleted = new File(mCurrentPhotoPath);
         if(fileToBeDeleted.exists()){
             if(fileToBeDeleted.delete()){
-                Log.w("YEE", "File Deleted: " + mCurrentPhotoPath);
+                Log.w("MainActivity", "File Deleted: " + mCurrentPhotoPath);
             } else {
-                Log.w("YEE", "File Not Deleted " + mCurrentPhotoPath);
+                Log.w("MainActivity", "File Not Deleted " + mCurrentPhotoPath);
             }
         }
     }
