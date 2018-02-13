@@ -3,6 +3,15 @@
 
     <item
         is-multidex="true"
+        jar="C:\Users\Gautham\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.9.1\84b4b7d1c4a238e7899972b7446c250691e65f1f\okhttp-3.9.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="84b4b7d1c4a238e7899972b7446c250691e65f1f">
+        <dex dex="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.9.1_344e0b4da2eb8a641a3ad7097ad1a11a6517efba\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
@@ -12,11 +21,20 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Gautham\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.13.0\a9283170b7305c8d92d25aff02a6ab7e45d06cbe\okio-1.13.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.13.0_85115ebbcc62ec862e942a04dfc68bd766d861bb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="4b41504d6cc72c31c57bfddbddfec87de0ebc2f1">
+        sha1="8e70f1ad4f76fb3f55278e43c02ad0ff662da9e7">
         <dex dex="C:\Users\Gautham\Documents\GitHub\imageToTextAnalysis\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_35824451081151855d3f35f0b26b11e25b291a4e\classes.dex" />
     </item>
 

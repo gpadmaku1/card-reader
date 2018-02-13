@@ -24,6 +24,7 @@ import com.google.i18n.phonenumbers.PhoneNumberMatch;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.gpads.gautham.imagetotextanalysis.R;
 import com.gpads.gautham.imagetotextanalysis.Tools.ConstructJSON;
+import com.gpads.gautham.imagetotextanalysis.Tools.OkHttpNetworking;
 import com.gpads.gautham.imagetotextanalysis.Tools.VolleyNetworking;
 
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private String phoneNumber;
     private String contactName;
     private String contactEmail;
+
+    private OkHttpNetworking okHttpNetworking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +89,12 @@ public class MainActivity extends AppCompatActivity {
                     phoneNumber = "Error";
                 }else{
                     if(!phoneNumbers.isEmpty())
-                    try {
-                        phoneNumber = phoneNumbers.get(0);
-                    }catch(IndexOutOfBoundsException e){
-                        e.printStackTrace();
-                        Toast.makeText(MainActivity.this, "There is no text!", Toast.LENGTH_SHORT).show();
-                    }
+                        try {
+                            phoneNumber = phoneNumbers.get(0);
+                        }catch(IndexOutOfBoundsException e){
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "There is no text!", Toast.LENGTH_SHORT).show();
+                        }
                 }
                 if(!results.isEmpty()) {
                     try {
@@ -107,6 +111,10 @@ public class MainActivity extends AppCompatActivity {
                     }catch (NullPointerException e){
                         e.printStackTrace();
                         Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -278,15 +286,9 @@ public class MainActivity extends AppCompatActivity {
      * @param results, String returned from Google Vision API
      * @return String that is the parsed email. Picks first two strings from the param
      */
-    private String parseName(String results) {
-        try {
-            String[] arr = results.split("\\s+");
-            return arr[0] + " " + arr[1];
-        }catch (IndexOutOfBoundsException e){
-            e.printStackTrace();
-            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-            return "";
-        }
+    private String parseName(String results) throws ExecutionException, InterruptedException {
+        okHttpNetworking = new OkHttpNetworking(results);
+        return okHttpNetworking.execute().get();
     }
 
 }
