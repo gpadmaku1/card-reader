@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int IMAGE_PERMISSION = 4 ;
     private static final int IMAGE_CAPTURE_REQUEST = 1001;
 
+    private static final String TAG = "MainActivity";
+    private static final String INTENT_PHONE_NUMBER = "phoneNumber";
+    private static final String INTENT_NAME = "name";
+    private static final String INTENT_EMAIL = "email";
+
     private ProgressBar progressBar;
 
     private EditText obtainedText;
@@ -55,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
     private String phoneNumber;
     private String contactName;
     private String contactEmail;
-
-    private OkHttpNetworking okHttpNetworking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
                         contactName = parseName(results);
                         contactEmail = parseEmail(results);
                         Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
-                        intent.putExtra("phoneNumber", phoneNumber);
-                        intent.putExtra("name", contactName);
-                        intent.putExtra("email", contactEmail);
+                        intent.putExtra(INTENT_PHONE_NUMBER, phoneNumber);
+                        intent.putExtra(INTENT_NAME, contactName);
+                        intent.putExtra(INTENT_EMAIL, contactEmail);
                         startActivity(intent);
                     }catch (NullPointerException e){
                         e.printStackTrace();
@@ -234,9 +237,9 @@ public class MainActivity extends AppCompatActivity {
         File fileToBeDeleted = new File(mCurrentPhotoPath);
         if(fileToBeDeleted.exists()){
             if(fileToBeDeleted.delete()){
-                Log.w("MainActivity", "File Deleted: " + mCurrentPhotoPath);
+                Log.w(TAG, "File Deleted: " + mCurrentPhotoPath);
             } else {
-                Log.w("MainActivity", "File Not Deleted " + mCurrentPhotoPath);
+                Log.w(TAG, "File Not Deleted " + mCurrentPhotoPath);
             }
         }
     }
@@ -281,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
      * @return String that is the parsed email. Picks first two strings from the param
      */
     private String parseName(String results) throws ExecutionException, InterruptedException {
-        okHttpNetworking = new OkHttpNetworking(results);
+        OkHttpNetworking okHttpNetworking = new OkHttpNetworking(results);
         return okHttpNetworking.execute().get();
     }
 

@@ -18,31 +18,30 @@ import com.gpads.gautham.imagetotextanalysis.R;
 
 public class ContactsActivity extends AppCompatActivity {
 
-    private EditText phoneText;
-    private EditText nameText;
-    private EditText emailText;
-
     private static final int CONTACTS_PERMISSION = 5;
-
-    private Button contactsButton;
 
     private String name;
     private String email;
     private String phone;
 
+    private static final String INTENT_PHONE_NUMBER = "phoneNumber";
+    private static final String INTENT_NAME = "name";
+    private static final String INTENT_EMAIL = "email";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
-        phoneText = (EditText) findViewById(R.id.phoneText);
-        nameText = (EditText) findViewById(R.id.nameText);
-        emailText = (EditText) findViewById(R.id.emailText);
-        contactsButton = (Button) findViewById(R.id.contactBtn);
+
+        EditText phoneText = (EditText) findViewById(R.id.phoneText);
+        EditText nameText = (EditText) findViewById(R.id.nameText);
+        EditText emailText = (EditText) findViewById(R.id.emailText);
+        Button contactsButton = (Button) findViewById(R.id.contactBtn);
 
         try {
-            phone = getIntent().getStringExtra("phoneNumber");
-            email = getIntent().getStringExtra("email");
-            name = getIntent().getStringExtra("name");
+            phone = getIntent().getStringExtra(INTENT_PHONE_NUMBER);
+            email = getIntent().getStringExtra(INTENT_EMAIL);
+            name = getIntent().getStringExtra(INTENT_NAME);
 
         } catch (NullPointerException e){
             e.printStackTrace();
@@ -69,8 +68,8 @@ public class ContactsActivity extends AppCompatActivity {
         String[] permissions = {"android.permission.WRITE_CONTACTS"};
         Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
         intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CONTACTS) != PackageManager
-                .PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, permissions, CONTACTS_PERMISSION);
         }
         else {

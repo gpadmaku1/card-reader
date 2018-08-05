@@ -20,22 +20,18 @@ import org.json.JSONObject;
 
 public class VolleyNetworking {
 
-
     private ProgressBar progressBar;
     private EditText obtainedText;
     private Context context;
+
     private static final String CLOUD_VISION_API_KEY =  BuildConfig.API_KEY;
+    private static final String TAG = "VolleyNetworking";
 
-    private String googleVisionResult;
-
-
-    //Default constructor
     public VolleyNetworking(Context context, ProgressBar progressBar, EditText obtainedText){
         this.context = context;
         this.progressBar = progressBar;
         this.obtainedText = obtainedText;
     }
-
 
     /**
      * Volley class to make HTTP Post Requests to Google Cloud Vision API
@@ -57,13 +53,12 @@ public class VolleyNetworking {
                             String bCardText = getRelevantString(response);
                             try {
                                 bCardText = bCardText.replace("\n", " ");
-                                googleVisionResult = bCardText;
                                 obtainedText.setText(bCardText);
                             }catch (NullPointerException e){
                                 e.printStackTrace();
                             }
                         } else{
-                            Log.w("VolleyNetworking", "response is null");
+                            Log.w(TAG, "response is null");
                         }
                     }
                 },
@@ -74,7 +69,7 @@ public class VolleyNetworking {
                         // error
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(context, "Network error. Processing failed", Toast.LENGTH_LONG).show();
-                        Log.w("Error.Response", error.toString());
+                        Log.w(TAG, error.toString());
                     }
                 }
         );
